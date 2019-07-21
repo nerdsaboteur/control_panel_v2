@@ -1,1 +1,53 @@
-// app global css
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    font-size:14px;
+    color: $grey-7;
+}
+.container {
+  background: #ddd;
+  min-height: 100vh;
+}
+.height-80 {
+    height: 80vh !important;
+}
+.border-rounded{
+    border:2px solid $grey-3;
+    border-radius: 12px;
+}
+.border-right{
+    border-right:2px solid $grey-3
+
+}
+.overflow-x{
+    overflow:auto;
+    overflow-x:auto
+}
+.my-card, .custom-card{
+    background:$primary;
+    border: $grey-5;
+    color: #fff;
+    font-size: 1.2em;
+    width: 100%;
+    height: auto;
+    margin:auto;
+
+        i{
+            color:$accent
+        }
+}
+.toggle-box{
+    background: $grey-6;
+    border: $grey-5;
+    color: #fff;
+    display:flex;
+    flex-flow: row;
+    justify-content:center;
+    align-items: center
+}
+.inner-card{
+    color:$grey-7;
+    font-size:1em;
+}

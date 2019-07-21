@@ -1,12 +1,27 @@
-
-const routes = [
-  {
-    path: '/',
-    component: () => import('layouts/MyLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  }
+const routes = [{
+  path: '/',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Index.vue')
+  }]
+},
+{
+  path: '/stuffz',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Stuffz.vue')
+  }]
+},
+{
+  path: '/thingz',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Thingz.vue')
+  }]
+}
 ]
 
 // Always leave this as last one

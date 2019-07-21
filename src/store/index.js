@@ -15,10 +15,26 @@ export default function (/* { ssrContext } */) {
     modules: {
       // example
     },
-
+    state: {
+      menuOne: true,
+      menuTwo: false
+    },
+    mutations: {
+      setMenuState (state) {
+        this.state.menuOne = !this.state.menuOne
+        this.state.menuTwo = !this.state.menuTwo
+      }
+    },
+    actions: {
+      setMenuState ({
+        commit
+      }) {
+        commit('setMenuState')
+      }
+    }
     // enable strict mode (adds overhead!)
     // for dev mode only
-    strict: process.env.DEV
+    // strict: process.env.DEV
   })
 
   return Store
