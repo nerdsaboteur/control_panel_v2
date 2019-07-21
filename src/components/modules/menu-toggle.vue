@@ -2,7 +2,7 @@
   <q-list class="toggle-box border-rounded border-rounded glossy">
     <q-item>
       <div class="row">
-        <div class="col-6 q-pt-sm">{{ title }}</div>
+        <div class="col-6 q-pt-sm">{{ data.label }}</div>
         <div class="col-6">
           <q-btn-toggle
             v-model="toggleItem"
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['title', 'toggleOptions'],
+  props: ['data', 'toggleOptions'],
   data () {
     return {
       toggleItem: 'yes'
@@ -31,8 +31,8 @@ export default {
   methods: {
     updateToggle () {
       this.$emit('menu-toggle-changed', {
-        title: this.title,
-        value: this.toggleItem
+        slug: this.data.slug,
+        status: this.toggleItem
       })
     }
   }

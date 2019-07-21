@@ -21,6 +21,14 @@ const routes = [{
     path: '',
     component: () => import('pages/Thingz.vue')
   }]
+},
+{
+  path: '/detail/task/:id',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Detail.vue')
+  }]
 }
 ]
 
