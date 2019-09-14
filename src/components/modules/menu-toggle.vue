@@ -1,10 +1,11 @@
 <template>
-  <q-list class="toggle-box border-rounded border-rounded glossy">
-    <q-item>
-      <div class="row">
-        <div class="col-6 q-pt-sm">{{ data.label }}</div>
-        <div class="col-6">
+  <q-list class="toggle-box full-width">
+    <q-item class="full-width">
+      <div class="row full-width">
+        <div class="col full-width">
+          <small style="text-transform: uppercase">{{data.label}}</small>
           <q-btn-toggle
+            class="full-width"
             v-model="toggleItem"
             spread
             no-caps
@@ -25,7 +26,7 @@ export default {
   props: ['data', 'toggleOptions'],
   data () {
     return {
-      toggleItem: 'yes'
+      toggleItem: this.data.status
     }
   },
   methods: {

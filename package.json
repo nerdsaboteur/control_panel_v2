@@ -13,7 +13,9 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
-    "quasar": "^1.0.0"
+    "moment": "^2.24.0",
+    "quasar": "^1.0.0",
+    "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",

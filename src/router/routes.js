@@ -3,31 +3,72 @@ const routes = [{
   component: () => import('layouts/MyLayout.vue'),
   children: [{
     path: '',
-    component: () => import('pages/Index.vue')
+    component: () => import('pages/Dashboard.vue')
   }]
 },
 {
-  path: '/stuffz',
+  path: '/todos',
   component: () => import('layouts/MyLayout.vue'),
   children: [{
     path: '',
-    component: () => import('pages/Stuffz.vue')
+    component: () => import('pages/Todos.vue')
   }]
 },
 {
-  path: '/thingz',
+  path: '/routines',
   component: () => import('layouts/MyLayout.vue'),
   children: [{
     path: '',
-    component: () => import('pages/Thingz.vue')
+    component: () => import('pages/Routines.vue')
   }]
 },
 {
-  path: '/detail/task/:id',
+  path: '/dashboard',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Dashboard.vue')
+  }]
+},
+{
+  path: '/budget',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Budget.vue')
+  }]
+},
+{
+  path: '/detail/todos/:id',
   component: () => import('layouts/MyLayout.vue'),
   children: [{
     path: '',
     component: () => import('pages/Detail.vue')
+  }]
+},
+{
+  path: '/detail/routines/:id',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Detail.vue')
+  }]
+},
+{
+  path: '/detail/reminders/:id',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/Detail.vue')
+  }]
+},
+{
+  path: '/detail/expenses/:id',
+  name: 'detail_expenses',
+  component: () => import('layouts/MyLayout.vue'),
+  children: [{
+    path: '',
+    component: () => import('pages/ExpenseDetail.vue')
   }]
 }
 ]

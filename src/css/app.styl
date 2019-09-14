@@ -4,21 +4,22 @@
 }
 body{
     font-size:14px;
-    color: $grey-7;
+    background:$dark
 }
-.container {
-  background: $grey-3;
-  min-height: 100vh;
+a:link{
+    text-decoration:none;
+    color:#333;
 }
+
 .height-80 {
     height: 80vh !important;
 }
 .border-rounded{
-    border:2px solid $grey-3;
+    border:2px solid $dark;
     border-radius: 12px;
 }
 .border-right{
-    border-right:2px solid $grey-3
+    border-right:2px solid $dark
 
 }
 .overflow-x{
@@ -27,7 +28,7 @@ body{
 }
 .my-card, .custom-card{
     background:$primary;
-    border: $grey-5;
+    border: $dark;
     color: #fff;
     font-size: 1.2em;
     width: 100%;
@@ -39,15 +40,185 @@ body{
         }
 }
 .toggle-box{
-    background: $primary;
+    background: $grey-2;
     border: $grey-5;
-    color: #fff;
+    color: $grey-7;
     display:flex;
     flex-flow: row;
     justify-content:center;
     align-items: center
 }
 .inner-card{
-    color:$grey-7;
+    color:$dark;
     font-size:1em;
+}
+.bg-white{
+    background:#fff
+}
+.q-item:hover{
+    background:inherit;
+    color:$secondary;
+    font-weight: bold;
+}
+.inner-card .q-item:hover{
+    background:$secondary;
+    color:$accent;
+    font-weight: bold
+}
+.q-card{
+    _border:none!important;
+    _border-radius:0!important
+    border:1px solid $primary;
+    border-radius: 12px;
+}
+.q-card__section {
+    position: relative;
+    padding: 12px;
+}
+.q-field__native, .q-field__prefix, .q-field__suffix {
+    font-weight: 400;
+    color:#333!important;
+    line-height: 28px;
+    letter-spacing: 0.00937em;
+    text-decoration: inherit;
+    text-transform: inherit;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: $primary;
+    outline: 0;
+    padding: 6px 0;
+}
+.q-field input:hover {
+    text-color:$dark;
+    font-weight: bold
+}
+.bb-grey{
+    border-bottom:1px solid $grey-2
+}
+.q-btn--rectangle {
+    border-radius: 0px;
+}
+.q-card {
+    box-shadow: none;
+    border-radius: 4px;
+    vertical-align: top;
+    background: #fff;
+    position: relative;
+}
+.q-icon, .material-icons, .material-icons-outlined, .material-icons-round, .material-icons-sharp {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: inherit;
+    font-size: 32px; 
+    color:$accent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+.toggle{
+
+}
+.toggle .q-btn{
+    background:$secondary!important;
+    border-right:1px solid #fff
+}
+.toggle .q-btn:nth-child(1){
+    border-top-left:1px solid #eee;
+    border-top-left-radius:12px;
+        border-bottom-left:1px solid #eee;
+    border-bottom-left-radius:12px
+}
+.toggle .q-btn:nth-child(2){
+    border-top-right:1px solid #eee;
+    border-top-right-radius:12px;
+        border-bottom-right:1px solid #eee;
+    border-bottom-right-radius:12px
+}
+.toggle-label{
+    color:$accent;
+    font-size:16px
+}
+.big{
+    font-size:20px
+}
+select{
+    min-height:42px
+}
+.vdp-datepicker {
+    text-align: left;
+    height:23px;
+    border-bottom:1px solid $dark;
+    outline: none;
+    padding-bottom:30px!important;
+}
+.vdp-datepicker input {
+    font-weight:400;
+font-size:12px!important;
+
+    border:none;
+    outline:none;
+    color: #333
+}
+.vdp-datepicker:hover {
+    color:$dark;
+    font-weight: bold
+}
+.vdp-datepicker__calendar {
+    position: absolute;
+    z-index: 100;
+    background: $primary!important;
+    color:#fff;
+    border: 1px solid #fff;
+}
+.q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
+    /*min-height: 56px;
+    min-width: 120px;*/
+}
+
+.active-tab {
+  background: $secondary;
+  color:#fff
+}
+.inactive-tab {
+  background: $primary;
+  color:#fff
+}
+
+.rounded-borders{
+    border:1px solid $primary;
+    border-radius: 12px;
+}
+.no-borders{
+    border: none;
+    border-radius: none;
+    outine:none;
+    border-color:none;
+}
+
+.detail-box{
+    height:100vh;overflow:auto;overflow-x:scroll
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $primary; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $primary; 
 }

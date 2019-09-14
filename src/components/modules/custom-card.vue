@@ -1,20 +1,23 @@
 <template>
-  <q-card class="q-mb-sm custom-card glossy">
+  <q-card class="custom-card q-mb-sm">
     <q-card-section>
-      <q-expansion-item expand-separator icon="favorite_border" :label="data.label">
-        <base-card :slug="data.slug" />
-      </q-expansion-item>
+      <h5 class="text-grey q-mb-md q-pl-sm">{{ data.label }}</h5>
+
+      <base-card :slug="data.slug" v-if="data.slug != 'bills'" />
+      <base-card-bills v-else :slug="data.slug" />
     </q-card-section>
   </q-card>
 </template>
 
 <script>
 import baseCard from './lists/base-card.vue';
+import baseCardBills from './lists/base-card-bills.vue';
 
 export default {
   props: ['data'],
   components: {
-    'base-card': baseCard
+    'base-card': baseCard,
+    'base-card-bills': baseCardBills
   },
   data () {
     return {}
@@ -22,6 +25,3 @@ export default {
   methods: {}
 }
 </script>
-
-<style>
-</style>
