@@ -11,7 +11,7 @@ Vue.use(Vuex)
  * directly export the Store instantiation
  */
 
-export default function (/* { ssrContext } */) {
+export default function ( /* { ssrContext } */ ) {
   const Store = new Vuex.Store({
     modules: {
       // example
@@ -19,32 +19,6 @@ export default function (/* { ssrContext } */) {
     state: {
       menuOne: true,
       menuTwo: false,
-      // menuList: [{
-      //   icon: 'inbox',
-      //   label: 'Inbox',
-      //   separator: true
-      // },
-      // {
-      //   icon: 'send',
-      //   label: 'Outbox',
-      //   separator: false
-      // },
-      // {
-      //   icon: 'delete',
-      //   label: 'Trash',
-      //   separator: false
-      // },
-      // {
-      //   icon: 'error',
-      //   label: 'Spam',
-      //   separator: true
-      // },
-      // {
-      //   icon: 'settings',
-      //   label: 'Settings',
-      //   separator: false
-      // }
-      // ],
       tasks: [],
       routines: [],
       total_actual_income: 0,
@@ -58,23 +32,32 @@ export default function (/* { ssrContext } */) {
       expense_categories: [],
       expense_by_category: [],
       credit: [],
-      savings: []
+      savings: [],
+      calendarClicked: false,
+      calendarData: [],
+      eventsData: []
+    },
+    getters: {
+      tasks: state => state.tasks,
+      task: state => state.task,
+      routines: state => state.routines,
+      daily: state => state.daily
     },
     mutations: {
-      setMenuState (state) {
+      setMenuState(state) {
         this.state.menuOne = !this.state.menuOne
         this.state.menuTwo = !this.state.menuTwo
       },
-      // setDrawerOptions (state, menu) {
-      //   this.state.menuList = menu
-      // },
-      setTasks (state, data) {
+      setCalendarClicked(state, data) {
+        this.state.calendarClicked = data
+      },
+      setTasks(state, data) {
         this.state.tasks = data
       },
-      setRoutines (state, data) {
+      setRoutines(state, data) {
         this.state.routines = data
       },
-      setIncomes (state, payload) {
+      setIncomes(state, payload) {
         this.state.total_actual_income = 0
         this.state.total_projected_income = 0
 
@@ -84,32 +67,38 @@ export default function (/* { ssrContext } */) {
         this.state.income_actual = payload.filter(item => item.type === 'actual')
         this.state.income_actual.forEach(item => this.state.total_actual_income += Number(item.amount))
       },
-      setExpenses (state, payload) {
+      setExpenses(state, payload) {
         this.state.expenses = payload
         this.state.active_expenses = payload.filter(i => i.active === 'yes')
         this.state.inactive_expenses = payload.filter(i => i.active === 'no')
       },
-      setExpense (state, val) {
+      setExpense(state, val) {
         this.state.expense = val
         // this.state.active_expenses = payload.filter(i => i.active === 'yes')
         // this.state.inactive_expenses = payload.filter(i => i.active === 'no')
       },
-      setExpenseCategory (state, payload) {
+      setExpenseCategory(state, payload) {
         state.expense_categories = payload
       },
-      setExpensesByCategory (state, payload) {
+      setExpensesByCategory(state, payload) {
         state.expense_by_category = payload
       },
-      setCredit (state, payload) {
+      setCredit(state, payload) {
         console.log(payload)
         state.credit = payload
       },
-      setSavings (state, payload) {
+      setSavings(state, payload) {
         state.savings = payload
+      },
+      setEventData(state, payload) {
+        state.eventData = payload
+      },
+      setCalendarData(state, payload) {
+        state.calendarData = payload
       }
     },
     actions: {
-      setMenuState ({
+      setMenuState({
         commit
       }) {
         commit('setMenuState')
@@ -120,7 +109,7 @@ export default function (/* { ssrContext } */) {
       //   console.log(menu)
       //   commit('setDrawerOptions', menu)
       // },
-      getTasks ({
+      getTasks({
         commit
       }) {
         ControlPanelService.getTasks()
@@ -129,7 +118,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(error => console.log(error))
       },
-      getRoutines ({
+      getRoutines({
         commit
       }) {
         ControlPanelService.getDailies()
@@ -139,7 +128,7 @@ export default function (/* { ssrContext } */) {
           .catch(error => console.log(error))
       },
 
-      getIncomes ({
+      getIncomes({
         commit
       }) {
         console.log('getIncomes')
@@ -148,7 +137,7 @@ export default function (/* { ssrContext } */) {
           commit('setIncomes', res.data)
         })
       },
-      getExpenses ({
+      getExpenses({
         commit
       }) {
         ControlPanelService.getExpenses()
@@ -158,7 +147,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      getExpense ({
+      getExpense({
         commit
       }, id) {
         ControlPanelService.getExpense(id)
@@ -168,7 +157,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      addExpense ({
+      addExpense({
         commit
 
       }, expense) {
@@ -177,7 +166,7 @@ export default function (/* { ssrContext } */) {
             commit('setExpenses', res.data)
           })
       },
-      deleteExpense ({
+      deleteExpense({
         commit
       }, id) {
         ControlPanelService.deleteExpense(id)
@@ -186,7 +175,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      updateExpense ({
+      updateExpense({
         commit
       }, expense) {
         ControlPanelService.updateExpense(expense._id, expense)
@@ -195,7 +184,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      getExpensesByCategory ({
+      getExpensesByCategory({
         commit
       }, category) {
         console.log('category')
@@ -206,40 +195,40 @@ export default function (/* { ssrContext } */) {
           })
       },
 
-      getExpenseCategories ({
+      getExpenseCategories({
         commit
       }) {
         ControlPanelService.getExpenseCategories().then(res => {
           commit('setExpenseCategory', res.data)
         })
       },
-      addExpenseCategory ({
+      addExpenseCategory({
         commit
       }, category) {
         ControlPanelService.addExpenseCategory(category)
           .then((res) => commit('setExpenseCategory', res.data))
       },
-      updateCategory ({
+      updateCategory({
         commit
       }, payload) {
         ControlPanelService.updateCategory(payload)
           .then((res) => commit('setExpenseCategory', res.data))
       },
-      deleteCategory ({
+      deleteCategory({
         commit
       }, id) {
         console.log('ID ' + id)
         ControlPanelService.deleteCategory(id)
           .then((res) => commit('setExpenseCategory', res.data))
       },
-      getCredit ({
+      getCredit({
         commit
       }) {
         ControlPanelService.getCredit().then(res => {
           commit('setCredit', res.data)
         })
       },
-      insertCredit ({
+      insertCredit({
         commit
       }, payload) {
         ControlPanelService.insertCredit(payload)
@@ -249,7 +238,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(() => console.log(e))
       },
-      deleteCredit ({
+      deleteCredit({
         commit
       }, id) {
         ControlPanelService.deleteCredit(id)
@@ -258,7 +247,7 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      updateCredit ({
+      updateCredit({
         commit
       }, credit) {
         ControlPanelService.updateCredit(credit)
@@ -267,31 +256,61 @@ export default function (/* { ssrContext } */) {
           })
           .catch(err => console.log(err))
       },
-      getSavings ({
+      getSavings({
         commit
       }) {
         ControlPanelService.getSavings().then(res => {
           commit('setSavings', res.data)
         })
       },
-      insertSavings ({
+      insertSavings({
         commit
       }, payload) {
         ControlPanelService.insertSavings(payload)
           .catch(() => console.log(e))
       },
-      deleteSavings ({
+      deleteSavings({
         commit
       }, id) {
         ControlPanelService.deleteSavings(id)
           .catch(err => console.log(err))
       },
-      updateSavings ({
+      updateSavings({
         context
       }, savings) {
         ControlPanelService.updateSavings(savings._id, savings)
           .catch(err => console.log(err))
-      }
+      },
+      getAllEvents({
+        commit
+      }) {
+        ControlPanelService.getAllEvents().then(res => {
+          commit('setEventData', res.data)
+        })
+
+        return ControlPanelService.getAllEvents()
+      },
+      insertEvent({
+        commit
+      }, payload) {
+        ControlPanelService.insertEvent(payload).then(res => {
+          commit('setCalendarData', res.data)
+        })
+      },
+      updateEvent({
+        commit
+      }, payload) {
+        ControlPanelService.updateEvent(payload.id, payload).then(res => {
+          commit('setCalendarData', res.data)
+        })
+      },
+      deleteEvent({
+        commit
+      }, id) {
+        ControlPanelService.deleteEvent(id).then(res => {
+          commit('setEventData', res.data)
+        })
+      },
     }
 
     // enable strict mode (adds overhead!)

@@ -9,7 +9,7 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-card class="bg-primary">
+            <q-card class="bg-white no-borders">
               <q-card-section>
                 <add-savings />
               </q-card-section>
@@ -23,7 +23,7 @@
         </q-item>-->
         <q-item>
           <q-item-section>
-            <q-card>
+            <q-card class="bg-white no-borders">
               <q-card-section>
                 <savings-item />
               </q-card-section>
@@ -36,20 +36,20 @@
 </template>
 
 <script>
-import addSavings from './../../components/forms/addSavings.vue';
-import savingsItem from './../../components/modules/lists/line-card-savings.vue';
-import savingsEdit from './../../components/forms/editSavings.vue';
+import addSavings from "./../../components/forms/addSavings.vue";
+import savingsItem from "./../../components/modules/lists/line-card-savings.vue";
+import savingsEdit from "./../../components/forms/editSavings.vue";
 
 export default {
   components: {
-    'add-savings': addSavings,
-    'savings-item': savingsItem,
-    'savings-edit': savingsEdit
+    "add-savings": addSavings,
+    "savings-item": savingsItem,
+    "savings-edit": savingsEdit
   },
-  mounted () {
-    this.$store.dispatch('getSavings')
+  mounted() {
+    this.$store.dispatch("getSavings");
   }
-}
+};
 </script>
 
 <style>

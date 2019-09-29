@@ -1,6 +1,6 @@
 <template>
   <q-expansion-item class="full-width" v-model="expanded" label="Add Credit">
-    <q-card>
+    <q-card class="no-borders">
       <q-card-section>
         <div class="row">
           <div class="col-4 q-pa-sm">
@@ -36,13 +36,13 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
+import Datepicker from "vuejs-datepicker";
 
 export default {
   components: {
-    'date-picker': Datepicker
+    "date-picker": Datepicker
   },
-  data () {
+  data() {
     return {
       label: null,
       creditlimit: null,
@@ -53,11 +53,11 @@ export default {
       paid: true,
       credit_item: null,
       expanded: false,
-      revolving: 'yes'
-    }
+      revolving: "yes"
+    };
   },
   methods: {
-    insertCredit () {
+    insertCredit() {
       let credit = {
         label: this.label,
         paymentduedate: this.paymentduedate,
@@ -66,24 +66,20 @@ export default {
         paymentdue: this.paymentdue,
         creditlimit: this.creditlimit,
         revolving: this.revolving
-      }
-      this.$store.dispatch('insertCredit', credit)
-      this.resetFields()
+      };
+      this.$store.dispatch("insertCredit", credit);
+      this.resetFields();
     },
-    resetFields () {
-      this.label = null
-      this.paymentduedate = null
-      this.creditbalance = null
-      this.creditavailable = null
-      this.paymentdue = null
-      this.creditlimit = null
-      this.revolving = 'yes';
+    resetFields() {
+      this.label = null;
+      this.paymentduedate = null;
+      this.creditbalance = null;
+      this.creditavailable = null;
+      this.paymentdue = null;
+      this.creditlimit = null;
+      this.revolving = "yes";
+      this.expanded = false;
     }
   }
-  // computed: {
-  //   credit () {
-  //     return this.$store.state.credit
-  //   }
-  // }
-}
+};
 </script>

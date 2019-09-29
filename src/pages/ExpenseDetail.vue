@@ -26,8 +26,7 @@
             <date-picker v-model="current_expense.duedate" class="col-4 q-mt-lg" />
           </div>
         </q-card-section>
-        <!-- </q-card>
-        <q-card>-->
+
         <q-card-section class="row justify-around">
           <q-toggle
             label="Paid"

@@ -2,7 +2,11 @@
   <div class="bg-white q-pa-lg">
     <!-- <q-expansion-item class="col-12" v-model="expanded" :label="cat"> -->
     <h5 class="q-mb-lg">{{cat}}</h5>
-    <q-card class="row full-width bg-primary">
+    <q-card class="no-borders" v-if="expense_by_category.length === 0">
+      <h6 class="text-grey">No records found</h6>
+    </q-card>
+
+    <q-card class="row full-width bg-white no-borders">
       <q-card-section class="col-12">
         <q-expansion-item
           v-for="expense in expense_by_category"
@@ -10,7 +14,7 @@
           @click="current_expense = expense"
           :label="expense.label"
         >
-          <q-card>
+          <q-card class="text-grey no-borders">
             <q-card-section v-if="expense._id === current_expense._id">
               <div class="row justify-between">
                 <q-field>
@@ -24,8 +28,15 @@
                 <q-field>
                   <q-input v-model="expense.actual" label="Actual" />
                 </q-field>
-
-                <date-picker v-model="expense.duedate" />
+                <q-field class="q-pa-md">
+                  <small class="full-width" style="color:#333;font-weight:400">Due Date</small>
+                  <date-picker
+                    style="position:relative;left:-100px"
+                    class="full-width no-borders q-mt-lg"
+                    label="Due Date"
+                    v-model="expense.duedate"
+                  />
+                </q-field>
               </div>
             </q-card-section>
 
@@ -53,7 +64,6 @@
                   </q-card-section>
                 </q-card>
               </q-card-section>
-              <q-card-section></q-card-section>
             </q-card-section>
             <q-card-section class="row justify-around">
               <q-toggle
@@ -115,29 +125,29 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
-import moment from 'moment';
+import Datepicker from "vuejs-datepicker";
+import moment from "moment";
 
 export default {
   props: {
     cat: String
   },
   components: {
-    'date-picker': Datepicker
+    "date-picker": Datepicker
   },
   watch: {
-    cat () {
+    cat() {
       if (this.cat != null) {
-        this.$store.dispatch('getExpensesByCategory', this.cat)
+        this.$store.dispatch("getExpensesByCategory", this.cat);
       }
     }
   },
   computed: {
-    expense_by_category () {
-      return this.$store.state.expense_by_category
+    expense_by_category() {
+      return this.$store.state.expense_by_category;
     }
   },
-  data () {
+  data() {
     return {
       expense: {
         label: null,
@@ -148,57 +158,57 @@ export default {
       },
       current_expense: {},
       expanded: true,
-      group: '0',
+      group: "0",
       options: [
-        { label: 'None', value: '0' },
-        { label: 'Once a month on a certain date', value: '1' },
-        { label: 'Every 14 days', value: '2' },
-        { label: 'Set manually', value: '3' }
+        { label: "None", value: "0" },
+        { label: "Once a month on a certain date", value: "1" },
+        { label: "Every 14 days", value: "2" },
+        { label: "Set manually", value: "3" }
       ]
-    }
+    };
   },
   methods: {
-    updateExpense (id, expense) {
-      expense._id = id
-      expense.category = this.cat
-      if (expense.recurrance === '0') {
-        expense.nextdate = moment(new Date(), 'YYYYMMDD')
-      } else if (expense.recurrance === '1') {
-        let current = moment(expense.nextdate, 'YYYYMMDD')
-        let day = current.format('D')
-        let dayOfMonth = parseInt(day) + 1
+    updateExpense(id, expense) {
+      expense._id = id;
+      expense.category = this.cat;
+      if (expense.recurrance === "0") {
+        expense.nextdate = moment(new Date(), "YYYYMMDD");
+      } else if (expense.recurrance === "1") {
+        let current = moment(expense.nextdate, "YYYYMMDD");
+        let day = current.format("D");
+        let dayOfMonth = parseInt(day) + 1;
 
-        let today = moment(new Date(), 'YYYYMMDD')
-        var month = today.format('M')
-        if (month === '12') {
-          month = 1
+        let today = moment(new Date(), "YYYYMMDD");
+        var month = today.format("M");
+        if (month === "12") {
+          month = 1;
         } else {
-          month = parseInt(month) + 1
+          month = parseInt(month) + 1;
         }
         // var day = today.format('D')
-        var year = today.format('YYYY')
-        let dateStr = month + '/' + dayOfMonth + '/' + year
+        var year = today.format("YYYY");
+        let dateStr = month + "/" + dayOfMonth + "/" + year;
 
-        expense.nextdate = moment(dateStr, 'MM/DD/YYYY')
-      } else if (expense.recurrance == '2') {
+        expense.nextdate = moment(dateStr, "MM/DD/YYYY");
+      } else if (expense.recurrance == "2") {
         // calculate on 14 days
         expense.nextdate = moment()
-          .add(14, 'days')
-          .calendar()
-      } else if (expense.recurrance == '3') {
-        expense.duenextdate = moment(expense.nextdate, 'YYYYMMDD')
+          .add(14, "days")
+          .calendar();
+      } else if (expense.recurrance == "3") {
+        expense.duenextdate = moment(expense.nextdate, "YYYYMMDD");
       }
       // console.log(JSON.stringify(expense))
-      this.$store.dispatch('updateExpense', expense)
+      this.$store.dispatch("updateExpense", expense);
     },
-    deleteExpense (id) {
-      this.$store.dispatch('deleteExpense', id)
+    deleteExpense(id) {
+      this.$store.dispatch("deleteExpense", id);
     }
   },
-  mounted () {
+  mounted() {
     if (this.cat != null) {
-      this.$store.dispatch('getExpensesByCategory', this.cat)
+      this.$store.dispatch("getExpensesByCategory", this.cat);
     }
   }
-}
+};
 </script>

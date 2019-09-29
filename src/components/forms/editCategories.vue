@@ -1,5 +1,5 @@
 <template>
-  <q-list>
+  <q-list class="bg-white">
     <q-item>
       <div class="row">
         <div class="col-6" v-for="(c, index) in categories" :key="index">

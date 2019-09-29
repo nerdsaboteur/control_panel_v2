@@ -11,14 +11,12 @@
             <q-input
               type="number"
               label="Priority"
-              outlined
               v-model="task.priority"
-              class="full-width q-pa-sm"
+              class="full-width q-pa-sm q-pl-md"
             />
           </div>
-          <div class="col">
-            <label class="q-pl-lg full-width toggle-label">set reminder</label>
-            <br />
+          <div class="col q-pt-lg">
+            <label class="q-pl-lg full-width toggle-label text-grey text-center">set reminder?</label>
             <q-btn-toggle
               v-model="task.reminder"
               class="q-pl-md toggle"
@@ -26,8 +24,8 @@
               rounded
               unelevated
               raised
-              toggle-color="purple"
-              color="white"
+              toggle-color="positive"
+              color="positive"
               text-color="primary"
               :options="[
           {label: 'Yes', value: 1},
@@ -72,45 +70,45 @@
 </template>
 
 <script>
-import ControlPanelService from './../../services/ControlPanelService.js';
+import ControlPanelService from "./../../services/ControlPanelService.js";
 
 export default {
-  data () {
+  data() {
     return {
       showDate: false
-    }
+    };
   },
   computed: {
-    path () {
-      return this.$route.path
+    path() {
+      return this.$route.path;
     },
-    tasks () {
-      return this.$store.state.tasks
+    tasks() {
+      return this.$store.getters.tasks;
     },
-    task () {
-      let id = this.path.split('/')[3]
-      return this.tasks.filter(i => i._id === id)[0]
+    task() {
+      let id = this.path.split("/")[3];
+      return this.tasks.filter(i => i._id === id)[0];
     }
   },
   methods: {
-    deleteTask () {
+    deleteTask() {
       ControlPanelService.deleteTask(this.task._id)
         .then(() => {
-          this.$emit('daily-updated')
-          this.$router.replace('/stuffz')
+          this.$emit("task-updated");
+          this.$router.replace("/todos");
         })
-        .catch(e => console.log('error : ' + e))
+        .catch(e => console.log("error : " + e));
     },
-    updateTask () {
+    updateTask() {
       ControlPanelService.updateTask(this.task._id, this.task)
-        .then(() => this.$emit('task-updated'))
-        .catch(error => console.log(error))
+        .then(() => this.$emit("task-updated"))
+        .catch(error => console.log(error));
     }
   },
-  mounted () {
-    this.$store.dispatch('getTasks')
+  mounted() {
+    this.$store.dispatch("getTasks");
   }
-}
+};
 </script>
 
 <style>

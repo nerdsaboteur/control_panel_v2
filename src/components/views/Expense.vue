@@ -12,7 +12,7 @@
 
             <q-item>
               <q-item-section>
-                <q-card class="bg-primary">
+                <q-card class="bg-white no-borders">
                   <q-card-section>
                     <q-expansion-item v-model="add_expanded" label="Add Expense">
                       <add-expense :categories="categories" v-on:expense-added="goToList" />
@@ -23,7 +23,7 @@
             </q-item>
             <q-item>
               <q-item-section>
-                <q-card class="bg-primary">
+                <q-card class="bg-white no-borders">
                   <q-card-section>
                     <q-expansion-item v-model="cat_expanded" label="Expense Categories">
                       <add-category />
@@ -35,7 +35,7 @@
             </q-item>
             <q-item>
               <q-item-section>
-                <q-card class="bg-primary">
+                <q-card class="bg-white no-borders">
                   <q-card-section class="row">
                     <div class="col-6 q-pa-md">
                       <q-btn
@@ -57,7 +57,7 @@
               </q-item-section>
             </q-item>
             <q-item>
-              <q-card class="row full-width q-pa-lg bg-primary">
+              <q-card class="row full-width q-pa-lg bg-primary no-borders">
                 <q-card-section class="col-12">
                   <expense-list class="bg-white" v-if="listView == true" />
                   <expense-category :cat="category" v-if="listView == false" />
@@ -72,60 +72,60 @@
 </template>
 
 <script>
-import AddExpense from 'components/forms/AddExpense.vue';
-import AddCategory from 'components/forms/AddCategory.vue';
-import EditCategories from 'components/forms/EditCategories.vue';
-import ExpenseList from 'components/modules/expense-list.vue';
-import ExpenseCategory from 'components/forms/expenseCategory.vue';
+import AddExpense from "components/forms/AddExpense.vue";
+import AddCategory from "components/forms/AddCategory.vue";
+import EditCategories from "components/forms/EditCategories.vue";
+import ExpenseList from "components/modules/expense-list.vue";
+import ExpenseCategory from "components/forms/expenseCategory.vue";
 
 export default {
   components: {
-    'expense-category': ExpenseCategory,
-    'add-category': AddCategory,
-    'edit-categories': EditCategories,
-    'add-expense': AddExpense,
-    'expense-list': ExpenseList
+    "expense-category": ExpenseCategory,
+    "add-category": AddCategory,
+    "edit-categories": EditCategories,
+    "add-expense": AddExpense,
+    "expense-list": ExpenseList
   },
-  data () {
+  data() {
     return {
       category: null,
       showExpenseSection: true,
       listView: true,
       add_expanded: false,
       cat_expanded: false
-    }
+    };
   },
   watch: {
-    category () {
-      this.listView = false
+    category() {
+      this.listView = false;
     }
   },
   computed: {
-    expense_categories () {
-      return this.$store.state.expense_categories
+    expense_categories() {
+      return this.$store.state.expense_categories;
     },
-    categories () {
+    categories() {
       if (this.expense_categories) {
         return this.expense_categories
           .map(r => r.label)
-          .sort((a, b) => (a < b ? -1 : 1))
+          .sort((a, b) => (a < b ? -1 : 1));
       }
     },
-    expenses () {
-      return this.$store.state.expenses
+    expenses() {
+      return this.$store.state.expenses;
     }
   },
   methods: {
-    goToList () {
-      this.listView = true
-      this.add_expanded = false
-      this.$store.dispatch('getExpenses')
+    goToList() {
+      this.listView = true;
+      this.add_expanded = false;
+      this.$store.dispatch("getExpenses");
     }
   },
-  mounted () {
-    this.$store.dispatch('getExpenseCategories')
+  mounted() {
+    this.$store.dispatch("getExpenseCategories");
   }
-}
+};
 </script>
 
 <style></style>

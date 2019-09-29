@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md q-mr-lg q-mt-lg">
-    <q-card class="full-width" style="border:none">
+    <q-card class="full-width full-height no-borders">
       <q-card-section>
         <div class="row">
           <div class="col">
@@ -13,26 +13,26 @@
 </template>
 
 <script>
-import editTask from './../forms/editTask.vue';
+import editTask from "./../forms/editTask.vue";
 
 export default {
   components: {
-    'edit-task': editTask
+    "edit-task": editTask
   },
-  data () {
+  data() {
     return {
       taskUpdated: false
-    }
+    };
   },
   watch: {
-    taskUpdated () {
+    taskUpdated() {
       if (this.taskUpdated) {
-        console.log('task updated')
-        this.$emit('task-updated')
+        console.log("task updated");
+        this.$emit("task-updated");
       }
     }
   }
-}
+};
 </script>
 
 <style>

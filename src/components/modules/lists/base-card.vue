@@ -1,5 +1,5 @@
 <template>
-  <q-card>
+  <q-card class="no-borders">
     <div v-if="slug === 'routines'" class="bg-purple full-width text-white">
       <q-checkbox v-model="showCompleted" label="Include Completed Items" />
     </div>
@@ -30,7 +30,7 @@
               </div>
             </q-item-label>
             <q-item-label caption lines="1" class="row nowrap justify-between items-start">
-              <span>{{ card.duedate }}</span>
+              <span>{{ card.duedate}}</span>
               <q-badge v-if="slug != 'routines'" color="purple">{{ card.priority }}</q-badge>
             </q-item-label>
             <q-item-label v-if="slug === 'routines'">
@@ -44,89 +44,89 @@
 </template>
 
 <script>
-import ControlPanelService from './../../../services/ControlPanelService.js';
+import moment from "moment";
+import ControlPanelService from "./../../../services/ControlPanelService.js";
 
 export default {
-  props: ['slug'],
-  data () {
+  props: ["slug", "newItem"],
+  data() {
     return {
       cardData: [],
       msg: null,
       showCompleted: false
-    }
+    };
   },
   watch: {
-    slug () {
-      this.getCardData()
+    slug() {
+      this.getCardData();
     },
-    newItem () {
-      this.getCardData()
+    newItem() {
+      this.getCardData();
     },
-    tasks () {
-      this.loadData()
+    tasks() {
+      this.loadData();
     },
-    routines () {
-      this.loadData()
+    routines() {
+      this.loadData();
     },
-    showCompleted () {
-      this.getCardData()
+    showCompleted() {
+      this.getCardData();
     }
   },
   computed: {
-    tasks () {
-      return this.$store.state.tasks
+    tasks() {
+      return this.$store.getters.tasks;
     },
-    task () {
-      return this.$store.state.task
+    task() {
+      return this.$store.getters.task;
     },
-    routines () {
-      return this.$store.state.routines
+    routines() {
+      return this.$store.getters.routines;
     },
-    daily () {
-      return this.$store.state.daily
+    daily() {
+      return this.$store.getters.daily;
     }
   },
   methods: {
-    getCardData () {
-      console.log('getCardData')
+    getCardData() {
       if (
-        this.slug === 'todos' ||
-        this.slug === 'reminders' ||
-        this.slug === 'remaining_todos'
+        this.slug === "todos" ||
+        this.slug === "reminders" ||
+        this.slug === "remaining_todos"
       ) {
-        this.$store.dispatch('getTasks')
-      } else if (this.slug === 'routines') {
-        this.$store.dispatch('getRoutines')
+        this.$store.dispatch("getTasks");
+      } else if (this.slug === "routines") {
+        this.$store.dispatch("getRoutines");
       }
     },
-    loadData () {
-      this.msg = null
-      if (this.slug === 'reminders') {
-        this.cardData = this.tasks.filter(i => parseInt(i.reminder) === 1)
-      } else if (this.slug === 'todos') {
-        this.cardData = this.tasks
-      } else if (this.slug === 'remaining_todos') {
-        this.cardData = this.tasks.filter(i => parseInt(i.reminder) != 1)
-      } else if (this.slug === 'routines') {
+    loadData() {
+      this.msg = null;
+      if (this.slug === "reminders") {
+        this.cardData = this.tasks.filter(i => parseInt(i.reminder) === 1);
+      } else if (this.slug === "todos") {
+        this.cardData = this.tasks;
+      } else if (this.slug === "remaining_todos") {
+        this.cardData = this.tasks.filter(i => parseInt(i.reminder) != 1);
+      } else if (this.slug === "routines") {
         if (!this.showCompleted) {
-          this.cardData = this.routines.filter(i => i.completed != 'yes')
+          this.cardData = this.routines.filter(i => i.completed != "yes");
         } else {
-          this.cardData = this.routines
+          this.cardData = this.routines;
         }
       }
 
       if (this.cardData.length === 0) {
-        this.msg = 'No items found';
+        this.msg = "No items found";
       }
     },
-    updateDaily () {
+    updateDaily() {
       ControlPanelService.updateDaily(this.cardData._id, this.cardData)
         .then(() => {})
-        .catch(e => console.log('error : ' + e))
+        .catch(e => console.log("error : " + e));
     }
   },
-  mounted () {
-    this.getCardData()
+  mounted() {
+    this.getCardData();
   }
-}
+};
 </script>

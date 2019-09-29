@@ -26,7 +26,7 @@
             />
           </div>-->
           <div class="col text-center">
-            <label class="q-pl-lg full-width toggle-label">completed</label>
+            <label class="q-pl-lg full-width toggle-label text-grey">completed</label>
             <br />
             <q-btn-toggle
               v-model="routine.completed"
@@ -44,7 +44,7 @@
             />
           </div>
           <div class="col text-center">
-            <label class="q-pl-lg full-width toggle-label">reset</label>
+            <label class="q-pl-lg full-width toggle-label text-grey">reset</label>
             <br />
             <q-btn-toggle
               v-model="routine.reset"
